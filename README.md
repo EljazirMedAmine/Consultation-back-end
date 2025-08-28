@@ -1,61 +1,296 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Système de Consultations Médicales
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Un système complet de gestion des consultations médicales composé d'une API backend Laravel et d'une interface frontend Next.js.
 
-## About Laravel
+## 📋 Table des matières
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Architecture](#architecture)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Utilisation](#utilisation)
+- [API Documentation](#api-documentation)
+- [Déploiement](#déploiement)
+- [Contribution](#contribution)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🏗️ Architecture
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Le projet est divisé en deux parties principales :
 
-## Learning Laravel
+- **Backend** : API REST développée avec Laravel
+- **Frontend** : Interface utilisateur développée avec Next.js
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+├── backend/          # API Laravel
+│   ├── app/
+│   ├── config/
+│   ├── database/
+│   ├── routes/
+│   └── ...
+└── frontend/         # Application Next.js
+    ├── pages/
+    ├── components/
+    ├── styles/
+    └── ...
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🔧 Prérequis
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Backend (Laravel)
+- PHP >= 8.1
+- Composer
+- MySQL/PostgreSQL
+- Node.js (pour Laravel Mix si utilisé)
 
-## Laravel Sponsors
+### Frontend (Next.js)
+- Node.js >= 16.0
+- npm ou yarn
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Installation
 
-### Premium Partners
+### Backend Laravel
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. **Cloner le repository et naviguer vers le dossier backend**
+   ```bash
+   cd backend
+   ```
 
-## Contributing
+2. **Installer les dépendances PHP**
+   ```bash
+   composer install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Configurer l'environnement**
+   ```bash
+   cp .env.example .env
+   ```
+   Modifier le fichier `.env` avec vos configurations de base de données.
 
-## Code of Conduct
+4. **Générer la clé d'application**
+   ```bash
+   php artisan key:generate
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. **Exécuter les migrations et seeders**
+   ```bash
+   php artisan migrate --seed
+   ```
 
-## Security Vulnerabilities
+6. **Démarrer le serveur de développement**
+   ```bash
+   php artisan serve --port=8001
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+L'API sera accessible sur `http://localhost:8001`
 
-## License
+### Frontend Next.js
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. **Naviguer vers le dossier frontend**
+   ```bash
+   cd frontend
+   ```
+
+2. **Installer les dépendances**
+   ```bash
+   npm install
+   ```
+
+3. **Configurer l'environnement**
+   ```bash
+   cp .env.local.example .env.local
+   ```
+   Modifier le fichier `.env.local` avec l'URL de votre API backend.
+
+4. **Démarrer en mode développement**
+   ```bash
+   npm run dev
+   ```
+
+L'application sera accessible sur `http://localhost:3000`
+
+## ⚙️ Configuration
+
+### Variables d'environnement Backend (.env)
+```env
+APP_NAME="Consultations Médicales"
+APP_ENV=local
+APP_KEY=base64:...
+APP_DEBUG=true
+APP_URL=http://localhost:8001
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=medical_consultations
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Autres configurations...
+```
+
+### Variables d'environnement Frontend (.env.local)
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8001/api
+NEXT_PUBLIC_APP_NAME=Consultations Médicales
+```
+
+## 🎯 Utilisation
+
+### Commandes Backend
+
+#### Développement
+```bash
+# Démarrer le serveur
+php artisan serve --port=8001
+
+# Migrations
+php artisan migrate
+php artisan migrate:rollback
+php artisan migrate:fresh --seed
+
+# Cache
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+```
+
+#### Production
+```bash
+# Optimisations
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+composer install --optimize-autoloader --no-dev
+```
+
+### Commandes Frontend
+
+#### Développement
+```bash
+# Démarrer en mode développement
+npm run dev
+
+# Linter et formatage
+npm run lint
+npm run lint:fix
+```
+
+#### Production
+```bash
+# Build pour production
+npm run build
+
+# Démarrer en production
+npm start
+
+# Analyser le bundle
+npm run analyze
+```
+
+## 📚 API Documentation
+
+### Endpoints principaux
+
+#### Authentification
+- `POST /api/login` - Connexion
+- `POST /api/register` - Inscription
+- `POST /api/logout` - Déconnexion
+
+#### Consultations
+- `GET /api/consultations` - Liste des consultations
+- `POST /api/consultations` - Créer une consultation
+- `GET /api/consultations/{id}` - Détails d'une consultation
+- `PUT /api/consultations/{id}` - Modifier une consultation
+- `DELETE /api/consultations/{id}` - Supprimer une consultation
+
+#### Patients
+- `GET /api/patients` - Liste des patients
+- `POST /api/patients` - Créer un patient
+- `GET /api/patients/{id}` - Détails d'un patient
+
+#### Médecins
+- `GET /api/doctors` - Liste des médecins
+- `POST /api/doctors` - Créer un médecin
+
+## 📁 Structure du projet
+
+### Backend
+```
+backend/
+├── app/
+│   ├── Http/Controllers/    # Contrôleurs
+│   ├── Models/             # Modèles Eloquent
+│   ├── Middleware/         # Middlewares
+│   └── Requests/           # Form Requests
+├── database/
+│   ├── migrations/         # Migrations
+│   └── seeders/           # Seeders
+└── routes/
+    └── api.php            # Routes API
+```
+
+### Frontend
+```
+frontend/
+├── pages/                 # Pages Next.js
+├── components/           # Composants réutilisables
+├── hooks/               # Hooks personnalisés
+├── services/            # Services API
+├── styles/              # Styles CSS
+└── utils/               # Utilitaires
+```
+
+## 🚀 Déploiement
+
+### Backend (Laravel)
+1. Configurez votre serveur web (Apache/Nginx)
+2. Pointez le document root vers `public/`
+3. Configurez les variables d'environnement
+4. Exécutez les migrations en production
+5. Optimisez l'application avec les commandes cache
+
+### Frontend (Next.js)
+1. Buildez l'application : `npm run build`
+2. Déployez sur Vercel, Netlify, ou votre serveur
+3. Configurez les variables d'environnement
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créez une branche pour votre fonctionnalité
+3. Committez vos changements
+4. Pushez vers la branche
+5. Ouvrez une Pull Request
+
+## 📝 Scripts utiles
+
+### Package.json (Frontend)
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}
+```
+
+## 🐛 Dépannage
+
+### Problèmes courants
+
+#### Backend
+- **Erreur de base de données** : Vérifiez les credentials dans `.env`
+- **Permission denied** : `chmod -R 775 storage bootstrap/cache`
+- **Key not set** : `php artisan key:generate`
+
+#### Frontend
+- **Cannot connect to API** : Vérifiez `NEXT_PUBLIC_API_URL` dans `.env.local`
+- **Build errors** : `rm -rf .next && npm run build`
+
+## 📞 Support
+
+Pour toute question ou problème, n'hésitez pas à ouvrir une issue sur le repository.
+
+---
